@@ -1,4 +1,4 @@
-haxima_game_makers_guide
+Haxima Game Makers Guide
 ========================
 
 # Downloading And Installing
@@ -6,6 +6,8 @@ haxima_game_makers_guide
 # Hello World
 
 ## The Minimal Setup
+
+Make a directory with some image files like this:
 
     .
     ├── images
@@ -18,7 +20,9 @@ haxima_game_makers_guide
     │       └── splash.png
     └── kern-init.scm
 
-kern-init.scm should have the following settings:
+You can figure out the format of the image files by studying the ones that come
+with Haxima. kern-init.scm is a scm file and it should have the following
+settings to match this directory layout:
 
     (kern-cfg-set 
     
@@ -67,3 +71,4 @@ Now cd to that directory and start nazghul:
 
 You should see:
 
+![Screenshot of minimal setup](screenshots/minimal.png)
