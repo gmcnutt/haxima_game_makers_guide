@@ -121,7 +121,9 @@ procedure to hook up to it. The engine supports a limited set of events which
 may be hooked to script procedures like this, and the start of a new game is
 one of them.
 
-    (kern-add-hook 'new_game_start_hook 'new-start)
+```scheme
+(kern-add-hook 'new_game_start_hook 'new-start)
+```
 
 The ' characters in front of the arguments are mandatory. They tell the scheme
 interpreter to accept these arguments as symbols and not to try and evaluate
@@ -132,20 +134,22 @@ them. If you didn't understand that statement don't worry.
 One of the most important top-level files is naz.scm, which, stripped of
 comments, is just this:
 
-    ;; naz.scm is the traditional name of the file that loads the game system. It
-    ;; needs to be the first thing loaded by a session startup script, and the
-    ;; nazghul engine is hard-coded to ensure every saved game starts by loading
-    ;; this.
-    
-    ;; Load the top-level init. This adds some generic scheme utilities.
-    (load "init.scm")
-    
-    ;; Load some generic custom utilities.
-    (load "utils.scm")
-    
-    ;; Load the game system. This adds all the object types and various constants
-    ;; and procedures needed for any haxima-style game.
-    (load "system/init.scm")
+```scheme
+;; naz.scm is the traditional name of the file that loads the game system. It
+;; needs to be the first thing loaded by a session startup script, and the
+;; nazghul engine is hard-coded to ensure every saved game starts by loading
+;; this.
+
+;; Load the top-level init. This adds some generic scheme utilities.
+(load "init.scm")
+
+;; Load some generic custom utilities.
+(load "utils.scm")
+
+;; Load the game system. This adds all the object types and various constants
+;; and procedures needed for any haxima-style game.
+(load "system/init.scm")
+```
 
 This file MUST be named naz.scm. It is a special file which the engine "knows"
 about and expects to exist. This requirement is because of the way the engine
