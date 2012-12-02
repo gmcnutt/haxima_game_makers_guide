@@ -124,5 +124,5 @@ Now cd to that directory and start nazghul:
 
 You should see:
 
-![Screenshot of minimal setup](screenshots/minimal.png)
+![Screenshot of minimal setup](https://github.com/gmcnutt/haxima_game_makers_guide/blob/master/chapters/1/screenshots/minimal.png)
 
