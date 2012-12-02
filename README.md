@@ -26,6 +26,11 @@ here:
 
 http://sourceforge.net/projects/nazghul/files/nazghul/nazghul-0.7.1/
 
+    NOTE: I've been making minor changes to the engine as I write this
+    guide. If you follow the directions on sourceforge you can pull the latest
+    source. At some point I will release 0.8.0 and this guide will be
+    compatible with it.
+
 ### Windows
 
 1. Download nazghul-0.7.1-setup.exe

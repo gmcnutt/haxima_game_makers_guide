@@ -30,6 +30,14 @@
 ;;  40 WE facing (eg, horses)
 ;; 170 NSEW facing (eg, ships)
 
+;; 'sprite-from-image' is a convenience proc for loading a sprite from an image
+;; file that contains just the one sprite of normal dimensions as a single
+;; animation frame.
+(define (mk-sprite-from-image tag fname)
+  (kern-mk-sprite tag
+		  (kern-mk-sprite-set nil 32 32 1 1 0 0 fname)
+		  1 0 #f 0))
+
 ;; Character sprites.
 (kern-mk-sprite 's_wanderer ss_characters 4 0 #f 0)
 
@@ -40,4 +48,6 @@
 (kern-mk-sprite 's_deck      ss_terrains 1 3 #f 0)
 
 ;; Odds & ends
-(kern-mk-sprite 's_crosshair ss_crosshair 1 0 #f 0)
+(mk-sprite-from-image 's_crosshair "images/system/crosshair.png")
+(mk-sprite-from-image 's_damage "images/system/damage.png")
+(mk-sprite-from-image 's_sun "images/system/sun.png")

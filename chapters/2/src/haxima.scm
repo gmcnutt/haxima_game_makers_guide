@@ -8,7 +8,7 @@
 
 ;; Load the data specific to the start of a new session. This adds all the
 ;; starting maps, characters, objects, etc.
-(kern-load "data/init.scm")
+(load "data/init.scm")
 
 ;; Register a procedure to run at start-of-game that will put the player on the
 ;; world map at coordinates (15, 15). The second arg to kern-add-hook must be a

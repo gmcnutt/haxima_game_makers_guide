@@ -11,7 +11,5 @@
  0                 ; initial phase
  '()               ; script interface
  ;; phases:
- (list 
-  (list (sprite-from-image "images/system/sun.png") 255 "full")
-  )
+ (list (list s_sun 255 "full"))
  )

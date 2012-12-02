@@ -20,6 +20,9 @@
  ;; option from the main menu. It lists the current save files.
  "save-game-filename"     "saved-games.scm"
 
+ ;; This is the directory where games will be saved.
+ "saved-games-dirname"    "saves"
+
  ;; This is the script file run when the user selects the "Tutorial"
  ;; option from the main menu.
  "tutorial-filename"     "tutorial.scm"

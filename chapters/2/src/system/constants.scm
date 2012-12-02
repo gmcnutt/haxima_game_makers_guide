@@ -29,6 +29,9 @@
 ;; Speeds (expressed as action points per round).
 (define speed-human 50)
 
+;; The "normal" cost to move one tile (see passability.scm).
+(define base-move-ap 50)
+
 ;; Player character bonuses
 (define pc-hp-off  25)
 (define pc-hp-gain 5)

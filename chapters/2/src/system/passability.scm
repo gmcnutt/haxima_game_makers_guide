@@ -14,15 +14,25 @@
 (define pclass-deep      2)
 (define pclass-mountains 3)
 
+;; Passability difficulty levels. The engine treats 255 as impassable.
+(define fast     (* 0.66 base-move-ap))  ;; 0.66 (2/3)
+(define s-fast   (* 0.8 base-move-ap))  ;; 'slightly fast' 0.8
+(define norm     base-move-ap)  ;; 1.0
+(define s-hard   (* 1.5 base-move-ap))  ;; 1.5
+(define hard     (* 2 base-move-ap))  ;; 2.0
+(define v-hard   (* 3 base-move-ap))  ;; 3.0
+(define no-drop  100)  ;; special (not related to speed-human)
+(define cant     255)  ;; special
+
 ;; Movement cost table. Each column is a movement mode. Each row is a
 ;; passability class. The value is the relative cost of movement, where 0 means
 ;; impassable, but otherwise smaller numbers mean less cost (and faster
 ;; movement).
 (kern-mk-ptable 
  ;;	walk	smallobj
- (list	0	0	) ;; none 
- (list  1       1       ) ;; grass
- (list  0       0       ) ;; deep
- (list  0       0       ) ;; mountain
+ (list	cant	cant ) ;; none 
+ (list  norm    norm ) ;; grass
+ (list  cant    cant ) ;; deep
+ (list  cant    cant ) ;; mountain
  )
 
