@@ -80,8 +80,57 @@ defined a startup procedure to put the player on the map:
 That call to kern-obj-put-at uses the tag p_world. This is an example
 of referring to an object by its tag.
 
-## Name
+### Name
 
-## Wilderness Flag
+The name is displayed in the UI. Whenever the player enters a place the console
+prints a message, and the '@' command also described the place.
 
-## kern-mk-map
+### Wilderness Flag
+
+The wilderness flag tells the engine that this is a large-scale outdoor
+map. The engine uses this to advance time differently when the player moves. It
+also tells the engine to show the player party as a single icon. In
+non-wilderness places the engine will show all the individual members, one per
+tile.
+
+### kern-mk-map
+
+The fourth argument to kern-mk-place is a map. Maps are defined with their own
+function, kern-mk-map. This was done to allow maps to be defined separately
+from places, and even be re-used in multiple places. As it turns out, this is
+useful only in special cases like temporary combat zone maps and dynamically
+generated dungeon rooms (future chapters). The first argument to kern-mk-map is
+an optional tag. If a map is declared standalone you must provide a tag so that
+it can be referenced; but if you embed the declaration like our example then
+you don't.
+
+```scheme
+(kern-mk-map
+ nil ; optional tag (none needed since this example was embedded)
+ 19  ; width of map in tiles
+ 19  ; height of map in tiles
+ pal_expanded ; palette used to decode the map below
+ (list
+     "__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ ^^ ^^ ^^ "
+     "__ __ __ .. .. .. .. .. .. .. .. .. .. .. __ __ ^^ .. ^^ "
+     "__ __ .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ ee __ "
+     "__ .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. ^^ ^^ .. ^^ ^^ .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. ee __ __ __ __ "
+     "__ .. .. ^^ ^^ .. ^^ ^^ .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. ^^ ^^ ^^ .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ .. .. .. __ "
+     "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. __ .. .. .. __ "
+     "__ .. .. .. .. .. .. ^^ ^^ .. ^^ ^^ .. .. __ .. .. .. __ "
+     "__ __ .. .. .. .. .. .. ^^ ^^ ^^ .. .. .. __ __ .. __ __ "
+     "__ __ __ .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ "
+ ))
+```
+
+LEFT OFF HERE
