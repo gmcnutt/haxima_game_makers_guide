@@ -1,4 +1,4 @@
-## 1. The Minimal Setup
+# 1. The Minimal Setup
 
 This chapter will help you setup the absolute bare minimum to get the nazghul
 engine to even start. The engine needs some initialization files to specify the
@@ -75,11 +75,23 @@ the following settings to match this directory layout:
     
      )
 
+The file consists of a single scheme procedure invocation. It is calling
+kern-cfg-set with a sequence of name/value pairs, all of which are strings. In
+scheme, procedures all called like this:
+
+    (PROCEDURE argument1 argument2 <etc>).
+
+The parentheses are not optional. They mean "evaluate what is between us and
+return the result". Whenever you see them in examples, enter them exactly the
+same way, without any extras. Any procedure which calls into the engine starts
+with a "kern-" prefix (for kernel). This procedure, kern-cfg-set, gives the
+engine these name/value pairs as parameters for it to use while starting up.
+
 When the game starts the engine will be running the default haxima game. You
 will of course want it to run your game instead. The approach here varies
 depending on your OS.
 
-### Windows
+## Windows
 
 Under Windows there are two ways to make the engine switch. The first is to
 modify the startup command:
@@ -101,14 +113,14 @@ The other method is to run it directly from a command prompt:
 
 You should see the screenshot shown below under Result.
 
-### OS
+## OS
 
 
 Now cd to that directory and start nazghul:
 
     nazghul
 
-### Result
+## Result
 
 You should see:
 
