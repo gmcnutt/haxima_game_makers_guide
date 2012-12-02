@@ -34,7 +34,7 @@ mygame.scm. You can even make different starting scenarios in different files
 (I often do for testing). The file is mostly comments, on lines that begin with
 ";;". 
 
-'''scheme
+```scheme
 ;; This file is the startup script for Haxima. It is invoked any time the
 ;; player wants to start a new Haxima game. Once the player has saved a game
 ;; and wants to resume it, the save file should be invoked instead of this.
@@ -54,7 +54,7 @@ mygame.scm. You can even make different starting scenarios in different files
   (println "starting....")
   (kern-obj-put-at kplayer (list p_world 10 5)))
 (kern-add-hook 'new_game_start_hook 'new-start)
-'''
+```
 
 For those unfamiliar with scheme I'll discuss what is happening in some detail.
 
