@@ -83,26 +83,28 @@ of referring to an object by its tag.
 ### Name
 
 The name is displayed in the UI. Whenever the player enters a place the console
-prints a message, and the '@' command also described the place.
+prints a message, and the '@' command also describes the place.
 
 ### Wilderness Flag
 
 The wilderness flag tells the engine that this is a large-scale outdoor
 map. The engine uses this to advance time differently when the player moves. It
-also tells the engine to show the player party as a single icon. In
-non-wilderness places the engine will show all the individual members, one per
-tile.
+also tells the engine to show the player party as a single icon. (In
+non-wilderness places like towns the engine will show all the individual
+members, one per tile.)
 
 ### kern-mk-map
 
 The fourth argument to kern-mk-place is a map. Maps are defined with their own
-function, kern-mk-map. This was done to allow maps to be defined separately
-from places, and even be re-used in multiple places. As it turns out, this is
-useful only in special cases like temporary combat zone maps and dynamically
-generated dungeon rooms (future chapters). The first argument to kern-mk-map is
-an optional tag. If a map is declared standalone you must provide a tag so that
-it can be referenced; but if you embed the declaration like our example then
-you don't.
+function, kern-mk-map. The engine was designed this way to allow maps to be
+defined separately from places, and even be re-used in multiple places. As it
+turns out, this is useful only in special cases like temporary combat zone maps
+and dynamically generated dungeon rooms (future chapters). 
+
+The first argument to kern-mk-map is an optional tag, which works exactly the
+way tags work for places [1]. If a map is declared standalone you must provide a
+tag so that it can be referenced; but if you embed the declaration like our
+example then you don't [2].
 
 ```scheme
 (kern-mk-map
@@ -134,7 +136,7 @@ you don't.
 ```
 
 The first three args to kern-mk-map are self-explanatory: tag, width and
-height. The fourth arg is the palette -- hold on to that thought -- and the
+height. The fourth arg is the palette (hold on to that thought) and the
 last is the actual terrain map.
 
 The terrain map is a list of strings, and each string is a list of
@@ -192,7 +194,7 @@ the fifteenth row:
     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ .. .. .. __ "
-    "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ "
+    "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ " ;; <--- changed
     "__ .. .. .. .. .. .. ^^ ^^ .. ^^ ^^ .. .. __ .. .. .. __ "
     "__ __ .. .. .. .. .. .. ^^ ^^ ^^ .. .. .. __ __ .. __ __ "
     "__ __ __ .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
@@ -207,7 +209,7 @@ What happens if you load a game that was saved before making this change? Does
 the change show up in the saved game? Try it and you'll see that it does
 not. That's because the saved game has its own copy of the map. It does not
 reload the original. If you were to edit the map in the saved game file, it
-would show up, and would persist through future games. Try it.
+would show up, and would persist through future games.
 
 Now suppose you wanted to enlarge the map from 19x19 to 19x20. You would need
 to make two changes. First, you must change the third argument from 19 to 20;
@@ -243,9 +245,9 @@ and then you must add another row, like this:
  ))
 ```
 
-Try it and see. Now, what if you wanted to make the map wider? What would you
-change? You'd change the second argument (the width) to 20, and you would have
-to edit every row, adding another terrain code at the end of every string.
+Now, what if you wanted to make the map wider? What would you change? You'd
+change the second argument (the width) to 20, and you would have to edit every
+row, adding another terrain code at the end of every string.
 
 Why are the terrain codes two characters instead of just one? In the game that
 ships with the engine, one character is not enough to represent all the terrain
@@ -266,3 +268,11 @@ limit built into the engine.
 Editing maps in a text editor is sometimes convenient for tweaking small
 details, but it is not a fun way to make large changes or create new
 maps. There are better ways to do both that we shall see later.
+
+FOOTNOTES
+
+[1] As you will see, a lot of things have tags, and they all work the same (ie,
+    they are global variables).
+
+[2] Because the return value of kern-mk-map is the new map. In general, the
+    return value of any kern-mk- call is the newly made thing.
