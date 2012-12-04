@@ -133,4 +133,136 @@ you don't.
  ))
 ```
 
-LEFT OFF HERE
+The first three args to kern-mk-map are self-explanatory: tag, width and
+height. The fourth arg is the palette -- hold on to that thought -- and the
+last is the actual terrain map.
+
+The terrain map is a list of strings, and each string is a list of
+space-separated two-character codes, where each code represents a terrain
+type. What do the codes mean? What, for instance, does "^^" mean? That is what
+the palette is for.
+
+A palette shows how to convert these codes to terrain types. In this case the
+palette is called pal_expanded, and this is a reference to a
+previously-declared palette. The palette is found in system/palette.scm and it
+is created with a call to kern-mk-palette:
+
+```scheme
+(kern-mk-palette 'pal_expanded
+		 (list
+		  (list "__" t_deep)
+		  (list "^^" t_mountains)
+		  (list ".." t_grass)
+		  (list "ee" t_deck)
+		  ))
+```
+
+The palette is declared with a tag (pal_expanded) followed by a list of
+code-to-terrain-type pairs. So, for example:
+
+```scheme
+(list "__" t_deep)
+```
+
+means "__" represents the terrain called t_deep. Well, what is t_deep? It's a
+terrain type, declared in system/terrains.scm, in a definition like this:
+
+```scheme
+  (kern-mk-terrain 't_deep "deep water" pclass-deep s_deep transparent 0 nil)
+```
+
+We'll cover terrain types in a later chapter. Getting back to our map
+definition, let's change our map by connecting the island in the southeast
+corner to the main land mass by converting some water ("__") to grass ("..") on
+the fifteenth row:
+
+```scheme
+(list
+    "__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ ^^ ^^ ^^ "
+    "__ __ __ .. .. .. .. .. .. .. .. .. .. .. __ __ ^^ .. ^^ "
+    "__ __ .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ ee __ "
+    "__ .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ __ __ __ __ "
+    "__ .. .. ^^ ^^ .. ^^ ^^ .. .. .. .. .. .. __ __ __ __ __ "
+    "__ .. .. .. .. .. .. .. .. .. .. .. .. .. ee __ __ __ __ "
+    "__ .. .. ^^ ^^ .. ^^ ^^ .. .. .. .. .. .. __ __ __ __ __ "
+    "__ .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ __ __ __ __ "
+    "__ .. .. .. .. .. .. .. ^^ ^^ ^^ .. .. .. __ __ __ __ __ "
+    "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. __ __ __ __ __ "
+    "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. __ __ __ __ __ "
+    "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+    "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+    "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ .. .. .. __ "
+    "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ "
+    "__ .. .. .. .. .. .. ^^ ^^ .. ^^ ^^ .. .. __ .. .. .. __ "
+    "__ __ .. .. .. .. .. .. ^^ ^^ ^^ .. .. .. __ __ .. __ __ "
+    "__ __ __ .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+    "__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ "
+)
+```
+
+Now if you start the game again (as a new game, not Journey Onward) you should
+be able to walk across the grass to the island.
+
+What happens if you load a game that was saved before making this change? Does
+the change show up in the saved game? Try it and you'll see that it does
+not. That's because the saved game has its own copy of the map. It does not
+reload the original. If you were to edit the map in the saved game file, it
+would show up, and would persist through future games. Try it.
+
+Now suppose you wanted to enlarge the map from 19x19 to 19x20. You would need
+to make two changes. First, you must change the third argument from 19 to 20;
+and then you must add another row, like this:
+
+```scheme
+(kern-mk-map
+ nil ; optional tag (none needed since this example was embedded)
+ 19  ; width of map in tiles
+ 20  ; height of map in tiles
+ pal_expanded ; palette used to decode the map below
+ (list
+     "__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ ^^ ^^ ^^ "
+     "__ __ __ .. .. .. .. .. .. .. .. .. .. .. __ __ ^^ .. ^^ "
+     "__ __ .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ ee __ "
+     "__ .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. ^^ ^^ .. ^^ ^^ .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. ee __ __ __ __ "
+     "__ .. .. ^^ ^^ .. ^^ ^^ .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. ^^ ^^ ^^ .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ .. .. .. .. .. .. .. .. .. .. .. .. .. __ .. .. .. __ "
+     "__ .. .. .. .. .. .. .. ^^ .. ^^ .. .. .. .. .. .. .. __ "
+     "__ .. .. .. .. .. .. ^^ ^^ .. ^^ ^^ .. .. __ .. .. .. __ "
+     "__ __ .. .. .. .. .. .. ^^ ^^ ^^ .. .. .. __ __ .. __ __ "
+     "__ __ __ .. .. .. .. .. .. .. .. .. .. .. __ __ __ __ __ "
+     "__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ "
+     "^^ .. .. .. __ __ __ __ .. ^^ .. __ __ __ __ __ __ .. ^^ "
+ ))
+```
+
+Try it and see. Now, what if you wanted to make the map wider? What would you
+change? You'd change the second argument (the width) to 20, and you would have
+to edit every row, adding another terrain code at the end of every string.
+
+Why are the terrain codes two characters instead of just one? In the game that
+ships with the engine, one character is not enough to represent all the terrain
+types. Does it have to be this way? Could one define a palette that only used
+one character? Yes, if your game only needs a few terrain types you could do
+that. In our current example we could easily do this. We could edit the palette
+so that "__" was just "_", and then change the map to match. We would still
+need to separate the codes with spaces, so the first line would be:
+
+```scheme
+"_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ^ ^ ^ "
+```
+
+The opposite is also true: if you create a game with so many terrain types that
+two characters is not enough, you could use three or even more. There is no
+limit built into the engine.
+
+Editing maps in a text editor is sometimes convenient for tweaking small
+details, but it is not a fun way to make large changes or create new
+maps. There are better ways to do both that we shall see later.
