@@ -8,9 +8,9 @@
 ;; single definition file.
 
 ;; The crosshair cursor used for targeting.
-(let* ((sprite (sprite-from-image "images/system/crosshair.png"))
+(let* ((sprite (mk-sprite-from-image nil "images/system/crosshair.png"))
        (type (mk-obj-type nil "crosshair" sprite layer-crosshair nil)))
   (kern-set-crosshair type))
 
 ;; The damage sprite. This is flashed over a character when it takes damage.
-(kern-set-damage-sprite (sprite-from-image "images/system/damage.png"))
+(kern-set-damage-sprite (mk-sprite-from-image nil "images/system/damage.png"))

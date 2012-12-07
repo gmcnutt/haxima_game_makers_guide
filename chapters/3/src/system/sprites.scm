@@ -30,24 +30,30 @@
 ;;  40 WE facing (eg, horses)
 ;; 170 NSEW facing (eg, ships)
 
-;; 'sprite-from-image' is a convenience proc for loading a sprite from an image
-;; file that contains just the one sprite of normal dimensions as a single
-;; animation frame.
+;; 'mk-sprite-from-image' is a convenience proc for loading a sprite from an
+;; image file that contains just the one sprite of normal dimensions as a
+;; single animation frame.
 (define (mk-sprite-from-image tag fname)
   (kern-mk-sprite tag
-		  (kern-mk-sprite-set nil 32 32 1 1 0 0 fname)
+		  (kern-mk-images nil 32 32 fname)
 		  1 0 #f 0))
 
-;; Character sprites.
-(kern-mk-sprite 's_wanderer ss_characters 4 0 #f 0)
+;; similar to 'mk-sprite-from-image', but for 8x16 sprites
+(define (mk-sprite-from-image-8x16 tag fname)
+  (kern-mk-sprite tag
+		  (kern-mk-images nil 8 16 fname)
+		  1 0 #f 0))
 
-;; Terrain sprites
-(kern-mk-sprite 's_deep      ss_terrains 1 0 #t 0)
-(kern-mk-sprite 's_grass     ss_terrains 1 1 #f 0)
-(kern-mk-sprite 's_mountains ss_terrains 1 2 #f 0)
-(kern-mk-sprite 's_deck      ss_terrains 1 3 #f 0)
+;; Characters
+(kern-mk-sprite 's_wanderer img_characters 4 0 #f 0)
+
+;; Terrains
+(kern-mk-sprite 's_deep      img_terrains 1 0 #t 0)
+(kern-mk-sprite 's_grass     img_terrains 1 1 #f 0)
+(kern-mk-sprite 's_mountains img_terrains 1 2 #f 0)
+(kern-mk-sprite 's_deck      img_terrains 1 3 #f 0)
 
 ;; Odds & ends
 (mk-sprite-from-image 's_crosshair "images/system/crosshair.png")
 (mk-sprite-from-image 's_damage "images/system/damage.png")
-(mk-sprite-from-image 's_sun "images/system/sun.png")
+(mk-sprite-from-image-8x16 's_sun "images/system/sun.png")

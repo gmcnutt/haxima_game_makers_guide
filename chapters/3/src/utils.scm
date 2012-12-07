@@ -16,10 +16,3 @@
   (kern-include fname)
   (load fname))
 
-;; 'sprite-from-image' is a convenience proc for loading a sprite from an image
-;; file that contains just the one sprite of normal dimensions as a single
-;; animation frame.
-(define (sprite-from-image fname)
-  (kern-mk-sprite nil
-		  (kern-mk-sprite-set nil 32 32 1 1 0 0 fname)
-		  1 0 #f 0))

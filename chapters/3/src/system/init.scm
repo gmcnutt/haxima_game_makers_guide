@@ -5,7 +5,7 @@
 ;; The order of these files is important.
 (load "system/constants.scm")
 (load "system/passability.scm")
-(load "system/sprite-sets.scm")
+(load "system/images.scm")
 (load "system/sprites.scm")
 (load "system/terrains.scm")
 (load "system/palette.scm")
