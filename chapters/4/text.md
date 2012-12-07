@@ -11,7 +11,8 @@ Our town will appear on the wilderness map as a single icon. We'll need a
 sprite to represent it. First you will need to make or find a 32x32 PNG image
 file to use as the town. You can get one from the shapes.png file that comes
 with haxima (this file contains all the freely-released ultima 4 sprites,
-enhanced for higher resolution). Name the file tower.png and put it in
+enhanced for higher resolution). Use an image editor like gimp to copy just the
+town sprite to its own 32x32 image. Name the file tower.png and put it in
 images/data/towns/. Next, add this line to system/sprites.scm:
 
 ```scheme
@@ -67,12 +68,11 @@ three important differences:
 
 1. Obviously, the map is different
 2. A sprite is passed as the third arg to kern-mk-place (it was nil on the
-   world). This is the sprite used to represent the town on the world map. This
-   sprite doesn't exist yet, but we will add it soon.
-3. The wilderness flag is #f instead of #t.
+   world). This is the sprite we just added; it will represent the town on the
+   world map.
+3. The wilderness flag is #f (ie, false) instead of #t (ie, true).
 
-To include our town in the new game you need to load it from data/init.scm by
-adding the following line to that file:
+Add this line to data/init.scm so that it will load our new town:
 
 ```scheme
 (load "data/places/town.scm")
@@ -95,7 +95,7 @@ by the x and y coords on the world map, like so:
 ```
 
 Now run the game. You should see a tower just southeast of the player icon. If
-you step on the tower you will enter the town, on the edge from which you
+you step on the tower you will enter the town on the edge from which you
 stepped. Likewise if you exit, you will emerge on the world map in the
 direction you stepped off.
 
